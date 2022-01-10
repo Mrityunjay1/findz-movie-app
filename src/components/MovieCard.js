@@ -1,27 +1,26 @@
+import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@material-ui/core';
 import React from 'react'
-import { Link } from 'react-router-dom'
-import styled from "styled-components";
+import { makeStyles } from '@material-ui/core/styles';
+import styled from 'styled-components';
+
+const useStyles = makeStyles({
+    root: {
+        maxWidth: 345,
+    },
+    media: {
+      height: 350,
+    },
+    div: {
+        textDecoration: 'none',
+    }
+  });
 
 const MovieContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 10px;
   width: 280px;
-  box-shadow: 0 3px 10px 0 #aaa;
   cursor: pointer;
-`;
-const CoverImage = styled.img`
-  object-fit: cover;
-  height: 362px;
-`;
-const MovieName = styled.span`
-  font-size: 18px;
-  font-weight: 600;
-  color: black;
-  margin: 15px 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 `;
 const InfoColumn = styled.div`
   display: flex;
@@ -37,19 +36,31 @@ const MovieInfo = styled.span`
   text-transform: capitalize;
   text-overflow: ellipsis;
 `;
-function MovieCard({movie}) {
+function MovieCard({data}) {
+    const classes = useStyles();
     return (
-        <div>
-            <Link to={`/movie/${movie.imdbID}`}>
-            <MovieContainer>
-                <CoverImage src={movie.Poster} alt={movie.Title} />
-                <MovieName>{movie.Title}</MovieName>
-                <InfoColumn>
-            <MovieInfo>Year : {movie.Year}</MovieInfo>
-            <MovieInfo>Type : {movie.Type}</MovieInfo>
-            </InfoColumn>
+        <div className={classes.div} >
+            <a href={`/movie/${data.imdbID}`} >
+            <Card className={classes.root}>
+      <CardActionArea>
+        <CardMedia
+          className={classes.media}
+          image={data.Poster}
+          title={data.title}
+        />
+        <CardContent>
+        <Typography gutterBottom variant="h5" component="h2">{data.Title}</Typography>
+        <MovieContainer>
+        <InfoColumn>
+        <MovieInfo>Year : {data.Year}</MovieInfo>
+        <MovieInfo>Type : {data.Type}</MovieInfo>
+      </InfoColumn>
         </MovieContainer>
-            </Link>
+        
+        </CardContent>
+      </CardActionArea>
+    </Card>
+            </a>
             
         </div>
     )

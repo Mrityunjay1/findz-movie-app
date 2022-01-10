@@ -19,7 +19,7 @@ function MovieList() {
 
     renderMovies= movies.Response === "True" ? (
         movies.Search.map((movie, index) => (
-          <MovieCard key={index} movie={movie} />
+          <MovieCard key={index} data={movie} />
         ))
       ) : (
         <div className="movies-error">
